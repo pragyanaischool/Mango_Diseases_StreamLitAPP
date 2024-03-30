@@ -23,6 +23,14 @@ hide_streamlit_style = """
 	footer {visibility: hidden;}
   </style>
 """
+st.set_option('deprecation.showfileUploaderEncoding', False)
+@st.cache(allow_output_mutation=True)
+def load_model():
+    model=tf.keras.models.load_model('mango_model.h5')
+    return model
+with st.spinner('Model is being loaded..'):
+    model=load_model()
+	
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) # hide the CSS code from the screen as they are embedded in markdown text. Also, allow streamlit to unsafely process as HTML
 
 def prediction_cls(prediction): # predict the class of the images based on the model results
